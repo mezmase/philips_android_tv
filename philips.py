@@ -38,7 +38,7 @@ def pair(config):
     data = { 'scope' :  [ "read", "write", "control"] }
     data['device']  = getDeviceSpecJson(config)
     print("Starting pairing request")
-    r = requests.post("https://" + config['address'] + ":1926/6/pair/request", json=data, verify=False)
+    r = requests.post("http://" + config['address'] + ":1925/6/pair/request", json=data, verify=False)
     response = r.json()
     auth_Timestamp = response["timestamp"]
     config['auth_key'] = response["auth_key"]
@@ -56,13 +56,13 @@ def pair(config):
     grant_request['device']  = getDeviceSpecJson(config)
 
     print("Attempting to pair")
-    r = requests.post("https://" + config['address'] +":1926/6/pair/grant", json=grant_request, verify=False,auth=HTTPDigestAuth(config['device_id'], config['auth_key']))
+    r = requests.post("http://" + config['address'] +":1925/6/pair/grant", json=grant_request, verify=False,auth=HTTPDigestAuth(config['device_id'], config['auth_key']))
     print(r.json())
     print("Username for subsequent calls is: " + config['device_id'])
     print("Password for subsequent calls is: " + config['auth_key'])
 
 def get_command(config):
-    r = requests.get("https://" + config['address'] + ":1926/" + config['path'], verify=False,auth=HTTPDigestAuth(config['device_id'], config['auth_key']))
+    r = requests.get("http://" + config['address'] + ":1925/" + config['path'], verify=False,auth=HTTPDigestAuth(config['device_id'], config['auth_key']))
     print(r)
     print(r.url)
     print(r.text)
@@ -70,7 +70,7 @@ def get_command(config):
 
 
 def post_command(config):
-    r = requests.post("https://" + config['address'] + ":1926/" + config['path'], json=config['body'], verify=False,auth=HTTPDigestAuth(config['device_id'], config['auth_key']))
+    r = requests.post("http://" + config['address'] + ":1925/" + config['path'], json=config['body'], verify=False,auth=HTTPDigestAuth(config['device_id'], config['auth_key']))
     print(r)
 
 
