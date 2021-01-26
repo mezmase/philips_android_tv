@@ -70,7 +70,7 @@ def get_command(config):
 
 
 def post_command(config):
-    r = requests.post("https://" + config['address'] + ":1926/" + config['path'], json=config['body'], verify=False,auth=HTTPDigestAuth(config['device_id'], config['auth_key']))
+    r = requests.post("http://" + config['address'] + ":1925/" + config['path'], json=config['body'], verify=False,auth=HTTPDigestAuth(config['device_id'], config['auth_key']))
     print(r)
 
 
